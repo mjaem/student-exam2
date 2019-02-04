@@ -1,4 +1,3 @@
-
 properties([disableConcurrentBuilds()])
 
 pipeline {
@@ -16,9 +15,14 @@ pipeline {
         stage("Some tests") {
             steps {
                 sh """
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip3 install -e .
+                    export FLASK_APP=js_example
                     pip3 install -e '.[test]'
                     coverage run -m pytest
                     coverage report
+                    deactivate
                 """
             }
         }
