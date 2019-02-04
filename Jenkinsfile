@@ -7,7 +7,7 @@ pipeline {
         registryCredential = 'dockerhub'
     }
     agent {
-        label 'agent'
+        label 'jankins_agent'
     }
     options {
         timestamps()
