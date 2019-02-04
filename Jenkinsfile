@@ -17,9 +17,9 @@ pipeline {
                 sh """
                     python3 -m venv venv
                     . venv/bin/activate
-                    pip3 install -e .
+                    pip install -e .
                     export FLASK_APP=js_example
-                    pip3 install -e '.[test]'
+                    pip install -e '.[test]'
                     coverage run -m pytest
                     coverage report
                     deactivate
