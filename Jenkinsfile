@@ -1,15 +1,10 @@
-properties([disableConcurrentBuilds()])
-
 pipeline {
     environment {
-        registry = "mjaem/epam_exam"
-        registryCredential = 'dockerhub'
+        docker_registry = "mjaem/epam_exam"
+        docker_registryCredential = 'dockerhub'
     }
     agent {
         label 'jenkins_agent'
-    }
-    options {
-        timestamps()
     }
     stages {
         stage("Some tests") {
@@ -29,14 +24,14 @@ pipeline {
         stage("Building image") {
             steps {
                 script {
-                    dockerImage = docker.build registry + ":webapp_v0.$BUILD_NUMBER"
+                    dockerImage = docker.build docker_registry + ":webapp_v$BUILD_NUMBER"
                 }
             }
         }
-        stage("Pushing to hub") {
+        stage("Pushing to docker hub") {
             steps {
                 script {
-                    docker.withRegistry( '', registryCredential ) {
+                    docker.withRegistry( '', docker_registryCredential ) {
                     dockerImage.push()
                     }
                 }
