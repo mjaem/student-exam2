@@ -2,13 +2,14 @@ FROM alpine:latest
 
 MAINTAINER Mikhail Mjae
 
-#Install python, clone Git repository and install web application
+RUN mkdir /home/student-exam2
+ADD . /home/student-exam2
+WORKDIR /home/student-exam2
+
+#Install python and web application 
 
 RUN apk update && \
-        apk add --no-cache git python3 && \
-        cd /root && \
-        git clone https://github.com/mjaem/student-exam2.git && \
-        cd student-exam2/ && \
+        apk add --no-cache python3 && \
         pip3 install -e .
 
 ENV FLASK_APP js_example
