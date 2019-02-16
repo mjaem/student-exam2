@@ -24,7 +24,8 @@ pipeline {
         stage("Building image") {
             steps {
                 script {
-                    dockerImage = docker.build docker_registry + ":webapp_v$BUILD_NUMBER"
+                    dockerImage_build = docker.build docker_registry + ":webapp_v$BUILD_NUMBER"
+                    dockerImage_latest = docker.build docker_registry + ":webapp_latest"
                 }
             }
         }
@@ -32,7 +33,8 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry( '', docker_registryCredential ) {
-                    dockerImage.push()
+                    dockerImage_build.push()
+                    dockerImage_latest.push()
                     }
                 }
             }
