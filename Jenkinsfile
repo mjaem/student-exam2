@@ -24,8 +24,8 @@ pipeline {
         stage("Building image") {
             steps {
                 script {
-                    docker.withRegistry( '', 'docker_registryCredential' ) {
-                    def dockerImage_build = docker.build("${env.docker_registry}:webapp_v$BUILD_NUMBER")
+                    docker.withRegistry( '', docker_registryCredential ) {
+                    dockerImage_build = docker.build docker_registry + ":webapp_v$BUILD_NUMBER"
                     dockerImage_build.push()
                     }
                 }
@@ -34,8 +34,8 @@ pipeline {
         stage("Pushing to docker hub") {
             steps {
                 script {
-                    docker.withRegistry( '', 'docker_registryCredential' ) {
-                    def dockerImage_latest = docker.build("${env.docker_registry}:webapp_latest")
+                    docker.withRegistry( '', docker_registryCredential ) {
+                    dockerImage_latest = docker.build docker_registry + ":webapp_latest"
                     dockerImage_latest.push()
                     }
                 }
