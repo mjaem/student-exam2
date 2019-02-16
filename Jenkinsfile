@@ -21,7 +21,7 @@ pipeline {
                 """
             }
         }
-        stage("Building image") {
+        stage("Building and pushing image with build_number tag") {
             steps {
                 script {
                     docker.withRegistry( '', docker_registryCredential ) {
@@ -31,7 +31,7 @@ pipeline {
                 }
             }
         }
-        stage("Pushing to docker hub") {
+        stage("Building and pushing image with latest tag") {
             steps {
                 script {
                     docker.withRegistry( '', docker_registryCredential ) {
