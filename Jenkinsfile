@@ -34,6 +34,8 @@ pipeline {
                 script {
                     docker.withRegistry( '', docker_registryCredential ) {
                     dockerImage_build.push()
+                    }
+                    docker.withRegistry( '', docker_registryCredential ) {
                     dockerImage_latest.push()
                     }
                 }
